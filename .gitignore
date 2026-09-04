@@ -1,0 +1,22 @@
+# MRI datasets
+data/raw/
+data/processed/
+
+# Medical imaging files
+*.nii
+*.nii.gz
+*.dcm
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE
+.vscode/
