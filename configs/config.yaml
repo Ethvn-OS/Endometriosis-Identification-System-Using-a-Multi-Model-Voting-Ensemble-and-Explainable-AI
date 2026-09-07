@@ -1,0 +1,25 @@
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+
+datasets:
+  ut_endomri:
+    path: data/raw/UT-EndoMRI
+    label: 1
+  healthy_pelvis:
+    path: data/raw/healthy_pelvis
+    label: 0
+
+preprocessing:
+  image_size: [224, 224]
+  sequences: ["T1", "T1FS", "T2", "T2FS"]
+
+split:
+  train_ratio: 0.8
+  val_ratio: 0.2
+  seed: 42
+
+augmentation:
+  rotation_range: 15
+  zoom_range: [0.8, 1.2]
+  translation_shift: 0.1

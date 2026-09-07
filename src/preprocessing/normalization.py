@@ -14,6 +14,6 @@ def min_max_normalize(image: np.ndarray) -> np.ndarray:
     if maximum == minimum:
         return np.zeros_like(image)
 
-    normalized = (image - minimum) / (maximum / minimum)
+    normalized = (image - minimum) / (maximum - minimum)
 
     return normalized
