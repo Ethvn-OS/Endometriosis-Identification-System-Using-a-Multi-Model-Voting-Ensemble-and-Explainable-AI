@@ -87,7 +87,9 @@ def run_pipeline(config: dict) -> None:
             patient_out_dir.mkdir(parents=True, exist_ok=True)
 
             for seq_file in seq_files:
-                seq_name = seq_file.stem.replace(".nii", "")
+                seq_name = next(
+                    seq for seq in sequences if f"_{seq}." in seq_file.name
+                )
 
                 try:
                     volume = load_nifti(seq_file)

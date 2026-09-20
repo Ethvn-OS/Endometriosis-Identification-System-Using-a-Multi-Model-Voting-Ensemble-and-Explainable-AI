@@ -13,6 +13,8 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+*-checkpoint.ipynb
+*_checkpoint.ipynb
 
 # Virtual environments
 .venv/
