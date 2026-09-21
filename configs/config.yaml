@@ -20,6 +20,12 @@ split:
   seed: 42
 
 augmentation:
+  enabled: true
   rotation_range: 15
   zoom_range: [0.8, 1.2]
   translation_shift: 0.1
+
+loader:
+  batch_size: 32
+  shuffle_buffer: 4096
+  seed: 42

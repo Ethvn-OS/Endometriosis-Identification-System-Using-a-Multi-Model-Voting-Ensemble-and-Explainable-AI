@@ -106,7 +106,7 @@ def run_pipeline(config: dict) -> None:
                     np.save(out_path, processed.astype(np.float32))
 
                     manifest_rows.append({
-                        "filename": str(out_path.relative_to(processed_dir)),
+                        "filename": str(out_path.relative_to(processed_dir).as_posix()),
                         "patient_id": patient_id,
                         "sequence": seq_name,
                         "split": split_name,
