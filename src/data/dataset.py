@@ -5,27 +5,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
-SEQUENCE_KEYWORDS = ("T1", "T1FS", "T2", "T2FS")
-LABEL_KEYWORDS = ("ov", "ut", "em", "cy", "cds", "_r1", "_r2", "_r3", "re3", "_pat")
-
-
-def _is_sequence_file(filename: str, sequences: list[str]) -> bool:
-    """
-    Determine whether a filename corresponds to an MRI sequence file
-    rather than a segmentation label file.
-    """
-
-    for keyword in LABEL_KEYWORDS:
-        if keyword in filename:
-            return False
-
-    for seq in sequences:
-        if f"_{seq}." in filename or f"_{seq}_" in filename:
-            return True
-
-    return False
-
-
 def get_sequence_files(patient_dir: Path, sequences: list[str]) -> dict[str, Path]:
     """
     Find available MRI sequence files for a patient directory.

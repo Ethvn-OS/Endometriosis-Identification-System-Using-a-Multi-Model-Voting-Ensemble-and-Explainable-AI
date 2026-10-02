@@ -27,6 +27,30 @@ def load_config(config_path: str | Path = "configs/config.yaml") -> dict:
         return yaml.safe_load(f)
 
 
+def _clear_stale_files(processed_dir: Path) -> None:
+    """
+    Remove re-generated output from a previous run of the pipeline.
+
+    A fresh run writes every slice referenced by the new manifest, so the split
+    directories and manifest from an earlier run would otherwise go stale
+    (e.g. orphaned slices from patients that no longer exist after a dataset
+    change). Deleting them keeps ``data/processed/`` internally consistent.
+    """
+
+    import shutil
+
+    for split_dir in ("train", "validation"):
+        target = processed_dir / split_dir
+        if target.is_dir():
+            shutil.rmtree(target)
+
+    manifest = processed_dir / "manifest.csv"
+    if manifest.exists():
+        manifest.unlink()
+
+    print("Cleared previous processed output.")
+
+
 def run_pipeline(config: dict) -> None:
     """
     Execute the full preprocessing pipeline:
@@ -44,6 +68,8 @@ def run_pipeline(config: dict) -> None:
     image_size = tuple(config["preprocessing"]["image_size"])
     train_ratio = config["split"]["train_ratio"]
     seed = config["split"]["seed"]
+
+    _clear_stale_files(processed_dir)
 
     # Step 1: Discover patients
     print("Discovering patients...")
