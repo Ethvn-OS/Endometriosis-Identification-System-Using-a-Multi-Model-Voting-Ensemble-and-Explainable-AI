@@ -141,6 +141,29 @@ def build_dataset(
     return ds
 
 
+def _assert_disjoint_patients(train_df: pd.DataFrame, val_df: pd.DataFrame) -> None:
+    """
+    Fail if any patient appears in both the train and validation splits.
+
+    The manifest is produced from a patient-level split (``split_patients``),
+    so every patient's slices must live in exactly one set. Slices from a
+    single patient are near-duplicate MRI frames; leaking them across sets
+    would inflate validation metrics, so this is treated as a hard error.
+    """
+
+    leaked = set(train_df["patient_id"]) & set(val_df["patient_id"])
+
+    if leaked:
+        shown = ", ".join(sorted(map(str, leaked))[:10])
+        extra = "" if len(leaked) <= 10 else f" ... and {len(leaked) - 10} more"
+        raise ValueError(
+            f"Patient leakage detected: {len(leaked)} patient(s) appear in both "
+            f"train and validation. Patients: {shown}{extra}. "
+            "Rebuild the manifest with a correct patient-level split "
+            "(src/preprocess.py)."
+        )
+
+
 def create_train_val_datasets(
     config: dict,
 ) -> tuple[tf.data.Dataset, tf.data.Dataset]:
@@ -153,6 +176,8 @@ def create_train_val_datasets(
 
     train_df = load_manifest(processed_dir, split="train")
     val_df = load_manifest(processed_dir, split="validation")
+
+    _assert_disjoint_patients(train_df, val_df)
 
     train_ds = build_dataset(config, train_df, augment=True, shuffle=True)
     val_ds = build_dataset(config, val_df, augment=False, shuffle=False)
