@@ -1,0 +1,371 @@
+{
+  "communities": {
+    "0": [
+      "configs_config_augmentation_configuration",
+      "configs_config_data_loader_configuration",
+      "configs_config_healthy_pelvis_dataset",
+      "configs_config_mri_sequences",
+      "configs_config_preprocessing_configuration",
+      "configs_config_train_validation_split",
+      "configs_config_training_data_configuration",
+      "configs_config_ut_endomri_dataset",
+      "data_readme_collaborating_local_hospital_dataset",
+      "data_readme_dataset_directory",
+      "data_readme_dataset_governance_restrictions",
+      "data_readme_healthy_pelvic_mri_dataset",
+      "data_readme_preprocessing_pipeline",
+      "data_readme_uthealth_endometriosis_mri_dataset",
+      "readme_classification_metrics",
+      "readme_clinical_decision_support",
+      "readme_data_augmentation",
+      "readme_densenet121",
+      "readme_efficientnetv2",
+      "readme_endometriosis",
+      "readme_endometriosis_identification_system",
+      "readme_explainable_artificial_intelligence",
+      "readme_grad_cam",
+      "readme_model_evaluation",
+      "readme_mri_preprocessing_pipeline",
+      "readme_pelvic_mri",
+      "readme_resnet50",
+      "readme_soft_voting_ensemble",
+      "readme_transfer_learning",
+      "requirements_jupyter",
+      "requirements_matplotlib",
+      "requirements_nibabel",
+      "requirements_numpy",
+      "requirements_opencv_python",
+      "requirements_pandas",
+      "requirements_python_ml_software_stack",
+      "requirements_pyyaml",
+      "requirements_scikit_learn",
+      "requirements_simpleitk",
+      "requirements_tensorflow",
+      "requirements_tf_keras_vis"
+    ],
+    "1": [
+      "collections",
+      "datetime",
+      "hashlib",
+      "importlib_metadata",
+      "platform",
+      "re",
+      "shutil",
+      "src_data_dataset",
+      "src_data_dataset_deduplicate_records",
+      "src_data_dataset_discover_patients",
+      "src_data_dataset_get_sequence_files",
+      "src_data_dataset_load_or_create_patient_splits",
+      "src_data_dataset_natural_key",
+      "src_data_dataset_patientrecord",
+      "src_data_dataset_py_dataframe",
+      "src_data_dataset_py_path",
+      "src_data_dataset_rationale_110",
+      "src_data_dataset_rationale_251",
+      "src_data_dataset_rationale_326",
+      "src_data_dataset_rationale_365",
+      "src_data_dataset_rationale_53",
+      "src_data_dataset_rationale_79",
+      "src_data_dataset_records_frame",
+      "src_data_dataset_save_manifest",
+      "src_data_dataset_sha256_file",
+      "src_data_dataset_split_patients",
+      "src_data_dataset_validate_patient_splits",
+      "src_data_dataset_voxel_sha256",
+      "src_preprocess",
+      "src_preprocess_clear_stale_files",
+      "src_preprocess_py_path",
+      "src_preprocess_rationale_54",
+      "src_preprocess_rationale_83",
+      "src_preprocess_record_lookup",
+      "src_preprocess_run_pipeline",
+      "subprocess",
+      "tests_test_dataset_datasettest",
+      "tests_test_dataset_datasettest_test_discovery_uses_explicit_cohort_labels",
+      "tests_test_dataset_datasettest_test_three_way_split_is_patient_disjoint_and_source_stratified",
+      "yaml"
+    ],
+    "2": [
+      "argparse",
+      "json",
+      "matplotlib_pyplot",
+      "sklearn_linear_model",
+      "sklearn_metrics",
+      "sklearn_model_selection",
+      "sklearn_pipeline",
+      "sklearn_preprocessing",
+      "src_preprocess_load_config",
+      "src_preprocess_rationale_31",
+      "src_train",
+      "src_train_callbacks",
+      "src_train_main",
+      "src_train_py_path",
+      "src_train_rationale_56",
+      "src_train_run",
+      "src_validate_dataset",
+      "src_validate_dataset_geometry_baseline",
+      "src_validate_dataset_py_dataframe",
+      "src_validate_dataset_py_path",
+      "src_validate_dataset_rationale_189",
+      "src_validate_dataset_sha256_file",
+      "src_validate_dataset_validate_dataset",
+      "src_validate_dataset_write_boundary_montage",
+      "src_validate_dataset_write_qc_montage",
+      "sys"
+    ],
+    "3": [
+      "cv2",
+      "src_preprocessing_augmentation",
+      "src_preprocessing_augmentation_build_augmentation_layer",
+      "src_preprocessing_augmentation_rationale_5",
+      "src_preprocessing_init",
+      "src_preprocessing_normalization",
+      "src_preprocessing_normalization_min_max_normalize",
+      "src_preprocessing_normalization_py_ndarray",
+      "src_preprocessing_normalization_rationale_5",
+      "src_preprocessing_slices",
+      "src_preprocessing_slices_py_ndarray",
+      "src_preprocessing_slices_rationale_5",
+      "src_preprocessing_slices_to_three_channels",
+      "src_preprocessing_transforms",
+      "src_preprocessing_transforms_center_crop_or_pad",
+      "src_preprocessing_transforms_harmonize_slice",
+      "src_preprocessing_transforms_preprocess_slice",
+      "src_preprocessing_transforms_py_ndarray",
+      "src_preprocessing_transforms_rationale_10",
+      "src_preprocessing_transforms_rationale_28",
+      "src_preprocessing_transforms_rationale_62",
+      "src_preprocessing_transforms_rationale_81",
+      "src_preprocessing_transforms_resize_slice",
+      "tests_test_preprocessing_preprocessingtest_test_crop_and_pad_preserves_center",
+      "tests_test_preprocessing_preprocessingtest_test_harmonized_slice_contract"
+    ],
+    "4": [
+      "dataclasses",
+      "nibabel",
+      "nibabel_processing",
+      "pathlib",
+      "src_preprocessing_nifti",
+      "src_preprocessing_nifti_extract_axial_slices",
+      "src_preprocessing_nifti_foreground_fractions",
+      "src_preprocessing_nifti_load_nifti",
+      "src_preprocessing_nifti_load_reoriented_nifti",
+      "src_preprocessing_nifti_niftivolume",
+      "src_preprocessing_nifti_py_ndarray",
+      "src_preprocessing_nifti_py_path",
+      "src_preprocessing_nifti_rationale_106",
+      "src_preprocessing_nifti_rationale_24",
+      "src_preprocessing_nifti_rationale_37",
+      "src_preprocessing_nifti_rationale_94",
+      "tempfile",
+      "tests_test_dataset",
+      "tests_test_preprocessing",
+      "tests_test_preprocessing_preprocessingtest",
+      "tests_test_preprocessing_preprocessingtest_test_axis_permutation_preserves_world_z_spacing",
+      "tests_test_preprocessing_preprocessingtest_test_foreground_fraction_counts_low_contrast_anatomy",
+      "tests_test_preprocessing_preprocessingtest_test_foreground_fraction_rejects_constant_volume",
+      "tests_test_preprocessing_preprocessingtest_test_oblique_volume_is_resampled_to_orthogonal_lps"
+    ],
+    "5": [
+      "dataset",
+      "src_data_init",
+      "src_data_loader",
+      "src_data_loader_assert_disjoint_patients",
+      "src_data_loader_build_dataset",
+      "src_data_loader_build_dataset_decode_map",
+      "src_data_loader_count_per_split",
+      "src_data_loader_create_datasets",
+      "src_data_loader_create_train_val_datasets",
+      "src_data_loader_load_and_expand",
+      "src_data_loader_load_manifest",
+      "src_data_loader_patient_normalized_weights",
+      "src_data_loader_py_dataframe",
+      "src_data_loader_py_ndarray",
+      "src_data_loader_py_path",
+      "src_data_loader_rationale_116",
+      "src_data_loader_rationale_173",
+      "src_data_loader_rationale_191",
+      "src_data_loader_rationale_216",
+      "src_data_loader_rationale_26",
+      "src_data_loader_rationale_63",
+      "src_data_loader_rationale_69",
+      "tensorflow"
+    ],
+    "6": [
+      "keras",
+      "numpy",
+      "pandas",
+      "src_evaluation",
+      "src_evaluation_aggregate_patient_predictions",
+      "src_evaluation_patientvalidationmetrics",
+      "src_evaluation_patientvalidationmetrics_init",
+      "src_evaluation_patientvalidationmetrics_on_epoch_end",
+      "src_evaluation_py_dataframe",
+      "src_evaluation_py_ndarray",
+      "src_evaluation_rationale_12",
+      "src_evaluation_rationale_37",
+      "tests_test_loader",
+      "tests_test_loader_loadertest",
+      "tests_test_loader_loadertest_test_leakage_is_rejected_across_any_pair",
+      "tests_test_loader_loadertest_test_patient_weights_equalize_patients_and_classes",
+      "tests_test_loader_loadertest_test_predictions_are_mean_pooled_per_patient",
+      "tests_test_modeling",
+      "unittest"
+    ],
+    "7": [
+      "keras_applications",
+      "keras_applications_densenet",
+      "keras_applications_resnet",
+      "model",
+      "register_keras_serializable",
+      "src_modeling",
+      "src_modeling_build_classifier",
+      "src_modeling_compile_classifier",
+      "src_modeling_densenet121_from_unit_interval",
+      "src_modeling_rationale_14",
+      "src_modeling_rationale_21",
+      "src_modeling_rationale_32",
+      "src_modeling_rationale_78",
+      "src_modeling_rationale_91",
+      "src_modeling_resnet50_from_unit_interval",
+      "src_modeling_soft_vote",
+      "tests_test_modeling_modelingtest",
+      "tests_test_modeling_modelingtest_test_all_backbones_accept_unit_interval_inputs"
+    ],
+    "8": [
+      "dataframe"
+    ],
+    "9": [
+      "src_init"
+    ],
+    "10": [
+      "src_preprocessing_dicom"
+    ]
+  },
+  "cohesion": {
+    "0": 0.07317073170731707,
+    "1": 0.09358974358974359,
+    "2": 0.12615384615384614,
+    "3": 0.13666666666666666,
+    "4": 0.13405797101449277,
+    "5": 0.16600790513833993,
+    "6": 0.15204678362573099,
+    "7": 0.13725490196078433,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0
+  },
+  "gods": [
+    {
+      "id": "src_data_dataset_discover_patients",
+      "label": "discover_patients()",
+      "degree": 13
+    },
+    {
+      "id": "src_preprocessing_transforms_harmonize_slice",
+      "label": "harmonize_slice()",
+      "degree": 13
+    },
+    {
+      "id": "src_preprocessing_nifti_load_reoriented_nifti",
+      "label": "load_reoriented_nifti()",
+      "degree": 12
+    },
+    {
+      "id": "requirements_python_ml_software_stack",
+      "label": "Python Machine Learning Software Stack",
+      "degree": 11
+    },
+    {
+      "id": "src_preprocess_run_pipeline",
+      "label": "run_pipeline()",
+      "degree": 11
+    },
+    {
+      "id": "src_preprocessing_nifti_foreground_fractions",
+      "label": "foreground_fractions()",
+      "degree": 11
+    },
+    {
+      "id": "src_validate_dataset_validate_dataset",
+      "label": "validate_dataset()",
+      "degree": 11
+    },
+    {
+      "id": "readme_mri_preprocessing_pipeline",
+      "label": "MRI Preprocessing Pipeline",
+      "degree": 10
+    },
+    {
+      "id": "src_data_dataset_load_or_create_patient_splits",
+      "label": "load_or_create_patient_splits()",
+      "degree": 10
+    },
+    {
+      "id": "src_data_loader_load_manifest",
+      "label": "load_manifest()",
+      "degree": 10
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Preprocessing Pipeline",
+      "target": "MRI Preprocessing Pipeline",
+      "source_files": [
+        "data/README.md",
+        "README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `Preprocessing Pipeline` unexpectedly reaches hub `MRI Preprocessing Pipeline`"
+    },
+    {
+      "source": "PyYAML",
+      "target": "Training and Data Configuration",
+      "source_files": [
+        "requirements.txt",
+        "configs/config.yaml"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; peripheral node `PyYAML` unexpectedly reaches hub `Training and Data Configuration`"
+    },
+    {
+      "source": "MRI Preprocessing Configuration",
+      "target": "MRI Preprocessing Pipeline",
+      "source_files": [
+        "configs/config.yaml",
+        "README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "Local MRI Dataset Directory",
+      "target": "Endometriosis Identification System",
+      "source_files": [
+        "data/README.md",
+        "README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "shares_data_with",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "Augmentation Configuration",
+      "target": "Data Augmentation",
+      "source_files": [
+        "configs/config.yaml",
+        "README.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

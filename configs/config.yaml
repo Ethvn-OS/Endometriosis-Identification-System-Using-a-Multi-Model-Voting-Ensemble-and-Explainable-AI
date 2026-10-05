@@ -1,23 +1,54 @@
 data:
   raw_dir: data/raw
   processed_dir: data/processed
+  patient_splits_file: data/processed/patient_splits.csv
+  qc_review_file: data/processed/qc_review.json
 
 datasets:
   ut_endomri:
     path: data/raw/UT-EndoMRI
     label: 1
-  healthy_pelvis:
-    path: data/raw/healthy_pelvis
+    cohort_role: confirmed_positive
+    sequence: T2
+    sequence_evidence: "UT-EndoMRI README defines *_T2 as T2-weighted MRI"
+    label_evidence: "UT-EndoMRI README describes the cohort as endometriosis patients"
+    source_reference: "data/raw/UT-EndoMRI/README.md"
+    sites:
+      - name: UT-D1
+        directory: D1_MHS
+        expected_patients_raw: 45
+        expected_unique_volumes: 45
+      - name: UT-D2
+        directory: D2_TCPW
+        expected_patients_raw: 47
+        expected_unique_volumes: 45
+  mogambo:
+    path: data/raw/non_endometriosis_set/MOGaMBOv0
     label: 0
+    cohort_role: proxy_comparator
+    sequence: T2
+    sequence_evidence: "IEEE DataPort DOI 10.21227/d9j3-g128 states raw scans are T2-weighted"
+    label_evidence: "Proxy comparator by cohort membership; endometriosis-negative status is not confirmed"
+    source_reference: "https://doi.org/10.21227/d9j3-g128"
+    source_site: MOGaMBO
+    expected_patients_raw: 94
+    expected_unique_volumes: 59
 
 preprocessing:
   image_size: [224, 224]
-  sequences: ["T1", "T1FS", "T2", "T2FS"]
+  sequences: ["T2"]
+  canonical_orientation: ["L", "P", "S"]
+  target_inplane_spacing_mm: 1.0
+  target_fov_mm: 384.0
+  foreground_percentiles: [2.0, 98.0]
+  min_foreground_fraction: 0.05
 
 split:
-  train_ratio: 0.8
-  val_ratio: 0.2
-  seed: 42
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+  seed: 2027
+  regenerate: false
 
 augmentation:
   enabled: true
@@ -29,3 +60,11 @@ loader:
   batch_size: 32
   shuffle_buffer: 4096
   seed: 42
+
+training:
+  model_names: ["ResNet50", "EfficientNetV2S", "DenseNet121"]
+  output_dir: outputs/training
+  epochs: 30
+  learning_rate: 0.001
+  early_stopping_patience: 5
+  reduce_lr_patience: 3

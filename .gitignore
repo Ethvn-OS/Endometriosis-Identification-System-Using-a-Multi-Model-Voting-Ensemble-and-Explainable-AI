@@ -16,6 +16,9 @@ __pycache__/
 *-checkpoint.ipynb
 *_checkpoint.ipynb
 
+# Model training artifacts
+outputs/
+
 # Virtual environments
 .venv/
 venv/

@@ -9,3 +9,4 @@ matplotlib>=3.9.0
 pyyaml>=6.0
 tf-keras-vis>=0.8.0
 jupyter>=1.0.0
+nbconvert>=7.16.0
