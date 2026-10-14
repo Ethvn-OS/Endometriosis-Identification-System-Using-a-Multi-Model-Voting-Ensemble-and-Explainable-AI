@@ -12,6 +12,7 @@ from scripts.generate_gradcam import (
     confusion_category,
     resize_heatmap,
     select_representative_slices,
+    validate_recomputed_probability,
     validate_request,
 )
 from src.modeling import MODEL_NAMES, build_classifier
@@ -110,6 +111,36 @@ class GenerateGradcamTest(unittest.TestCase):
         self.assertEqual(resized.shape, (12, 10))
         self.assertGreaterEqual(float(resized.min()), 0.0)
         self.assertLessEqual(float(resized.max()), 1.0)
+
+    def test_small_batch_dependent_probability_drift_is_accepted(self):
+        drift = validate_recomputed_probability(
+            "ResNet50",
+            "UT-D1-027",
+            expected_probability=0.72911805,
+            actual_probability=0.72991693,
+            expected_prediction=1,
+        )
+        self.assertAlmostEqual(drift, 0.00079888)
+
+    def test_probability_check_rejects_changed_classification(self):
+        with self.assertRaisesRegex(ValueError, "classification"):
+            validate_recomputed_probability(
+                "ResNet50",
+                "patient",
+                expected_probability=0.501,
+                actual_probability=0.499,
+                expected_prediction=1,
+            )
+
+    def test_probability_check_rejects_large_drift(self):
+        with self.assertRaisesRegex(ValueError, "exceeding"):
+            validate_recomputed_probability(
+                "ResNet50",
+                "patient",
+                expected_probability=0.7,
+                actual_probability=0.71,
+                expected_prediction=1,
+            )
 
     def test_all_classifier_topologies_support_native_gradcam(self):
         sample = np.random.default_rng(8).random(

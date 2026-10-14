@@ -51,6 +51,7 @@ EXPECTED_TEST = {
     "proxy_comparator_patients": 9,
 }
 CONFUSION_ORDER = {"TP": 0, "TN": 1, "FP": 2, "FN": 3}
+MAX_PROBABILITY_DRIFT = 0.005
 
 
 def validate_request(split: str, confirm_final_test_explanations: bool) -> None:
@@ -295,6 +296,38 @@ def resize_heatmap(heatmap: np.ndarray, image_shape: tuple[int, int]) -> np.ndar
     return np.clip(resized, 0.0, 1.0).astype(np.float32)
 
 
+def validate_recomputed_probability(
+    model_name: str,
+    patient_id: str,
+    expected_probability: float,
+    actual_probability: float,
+    expected_prediction: int,
+    maximum_drift: float = MAX_PROBABILITY_DRIFT,
+) -> float:
+    values = np.asarray([expected_probability, actual_probability], dtype=np.float64)
+    if not np.isfinite(values).all() or ((values < 0.0) | (values > 1.0)).any():
+        raise ValueError("Saved and recomputed probabilities must be finite and in [0, 1].")
+    if expected_prediction not in (0, 1):
+        raise ValueError("Saved slice prediction must be binary.")
+    if int(expected_probability >= THRESHOLD) != expected_prediction:
+        raise ValueError(
+            f"Saved {model_name} probability and prediction disagree for {patient_id}."
+        )
+    actual_prediction = int(actual_probability >= THRESHOLD)
+    if actual_prediction != expected_prediction:
+        raise ValueError(
+            f"{model_name} classification for {patient_id} changed from "
+            f"{expected_prediction} to {actual_prediction}."
+        )
+    drift = abs(actual_probability - expected_probability)
+    if drift > maximum_drift:
+        raise ValueError(
+            f"{model_name} probability drift for {patient_id} is {drift:.8f}, "
+            f"exceeding the allowed {maximum_drift:.8f}."
+        )
+    return drift
+
+
 def _safe_name(value: str) -> str:
     safe = re.sub(r"[^A-Za-z0-9._-]+", "_", value).strip("._")
     if not safe:
@@ -486,6 +519,7 @@ def run_gradcam(
     heatmaps: dict[str, dict[str, np.ndarray]] = {
         patient_id: {} for patient_id in cases["patient_id"]
     }
+    probability_audit: dict[tuple[str, str], tuple[float, float]] = {}
     target_layers = {}
     for model_name in MODEL_NAMES:
         print(f"Loading {model_name} for Grad-CAM...")
@@ -503,13 +537,17 @@ def run_gradcam(
             expected_probability = float(
                 getattr(case, f"{model_name}_slice_probability")
             )
-            if not np.isclose(
-                actual_probability, expected_probability, rtol=1e-4, atol=1e-4
-            ):
-                raise ValueError(
-                    f"{model_name} probability for {case.patient_id} changed from "
-                    f"{expected_probability:.8f} to {actual_probability:.8f}."
-                )
+            drift = validate_recomputed_probability(
+                model_name,
+                case.patient_id,
+                expected_probability,
+                actual_probability,
+                int(getattr(case, f"{model_name}_slice_prediction")),
+            )
+            probability_audit[(case.patient_id, model_name)] = (
+                actual_probability,
+                drift,
+            )
             prepared = np.asarray(
                 preprocessing_model(image[None, ...], training=False)
             )[0]
@@ -524,6 +562,14 @@ def run_gradcam(
         del gradcam_model, preprocessing_model, model
         keras.backend.clear_session()
         gc.collect()
+
+    for model_name in MODEL_NAMES:
+        cases[f"{model_name}_recomputed_slice_probability"] = cases[
+            "patient_id"
+        ].map(lambda patient_id: probability_audit[(patient_id, model_name)][0])
+        cases[f"{model_name}_absolute_probability_drift"] = cases[
+            "patient_id"
+        ].map(lambda patient_id: probability_audit[(patient_id, model_name)][1])
 
     patient_panels_dir = output_dir / "patient_panels"
     featured_dir = output_dir / "featured_cases"
@@ -580,6 +626,11 @@ def run_gradcam(
         ),
         "gradcam_target_rule": "selected_slice_predicted_class_logit",
         "negative_class_score": "negative_of_positive_class_logit",
+        "maximum_allowed_probability_drift": MAX_PROBABILITY_DRIFT,
+        "maximum_observed_probability_drift": {
+            name: float(cases[f"{name}_absolute_probability_drift"].max())
+            for name in MODEL_NAMES
+        },
         "target_layers": target_layers,
         "explanation_scope_warning": (
             "Each panel explains one deterministic representative slice. The patient "
